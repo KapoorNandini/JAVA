@@ -1,5 +1,42 @@
+import java.lang.annotation.Target;
+
+//SEARCH IN 2D MATRIX 
+//Linear Search 
+//APPROACH 1
+
+// class searchIn2DMatrix {
+//     static boolean search(int[][] arr,int target)
+//     {
+//         for(int i=0;i<arr.length;i++)
+//         {
+//             for(int j=0;j<arr.length;j++)
+//             {
+//                 if(target==arr[i][j])
+//                 return true;
+//             }
+//         }
+
+//         return false;
+//     }
+
+//     public static void main(String[] args) {
+//         int [][]arr={{1,3,5,7},{10,11,16,20},{23,30,34,60}};
+
+//         boolean ans=search(arr,100);
+
+
+//         if(ans==true)
+//         System.out.println("Element found");
+//         else
+//         System.out.println("Element not found");
+
+
+//     }
+// }
+
 // SEARCHING AN ELEMENT IN 2-D ARRAY
-// 2nd Approach 
+
+// *****2nd Approach 
 // Apply binary search in the matrix
 // public class TwoDarray{
 //     class searchIn2DMatrix2 {
@@ -62,7 +99,7 @@
 
 // SEARCHING AN ELEMENT IN 2-D ARRAY
 
-// 3rd APPROACH
+// *****3rd APPROACH
 
 // find midrow
 // check if target is eq to mid row ka last element 
@@ -76,64 +113,123 @@
 // else enrow = midrow -1
 // TIME COMPLEXITY = nlogm
 
+// class TwoDarray
+// {
+
+
+//     static boolean search(int[][]arr,int target)
+//     {
+        
+//         int n=arr.length;
+//         int m=arr[0].length;
+
+//         int stRow=0,enRow=n-1,midRow;
+
+//         while (stRow<=enRow) {
+
+//             midRow=(stRow+enRow)/2;
+
+//             if(target==arr[midRow][m-1])
+//             return true;
+
+//             else if(target>arr[midRow][m-1])
+//             stRow=midRow+1;
+//             else
+//             {
+//                 int stCol=0,enCol=m-1,midCol;
+
+//                 while (stCol<=enCol) {
+//                     midCol=(stCol+enCol)/2;
+
+//                     if(target==arr[midRow][midCol])
+//                     return true;
+
+//                     else if(target>arr[midRow][midCol])
+//                     stCol=midCol+1;
+
+//                     else
+//                     enCol=midCol-1;
+                    
+//                 }
+
+//                 enRow=midRow-1;
+//             }
+            
+//         }
+
+
+//         return false;
+//     }
+//     public static void main(String[] args) {
+//         int [][]arr={{1,3,5,7},{10,11,16,20},{23,30,34,60}};
+//         int target=50;
+//         boolean ans=search(arr, target);
+
+//         if(ans==true)
+//         System.out.println("element found");
+//         else 
+//         System.out.println("not found");
+//     }
+// }
+
+
+// ******4th APPROACH
+// Treat array as linear array as it is sorted and every element of last row
+// is less than next row element
+// find mid
+// Now find row and col no of mid 
+// rowno = mid/colno
+// colno = mid%colno
+// Now apply binary search
+// TIME COMPLEXITY = O(Logn*m)
+
 class TwoDarray
 {
 
-
-    static boolean search(int[][]arr,int target)
+    static boolean searchMatrix(int[][] arr, int target) 
     {
-        
         int n=arr.length;
         int m=arr[0].length;
 
-        int stRow=0,enRow=n-1,midRow;
+        int s=0,e=n*m-1,mid;
 
-        while (stRow<=enRow) {
+        while (s<=e) 
+        {
+            mid=(s+e)/2;
+            int rowNo=mid/m;
+            int colNo=mid%m;
 
-            midRow=(stRow+enRow)/2;
-
-            if(target==arr[midRow][m-1])
+            if(target==arr[rowNo][colNo])
             return true;
 
-            else if(target>arr[midRow][m-1])
-            stRow=midRow+1;
+            if(target>arr[rowNo][colNo])
+            s=mid+1;
+
             else
-            {
-                int stCol=0,enCol=m-1,midCol;
-
-                while (stCol<=enCol) {
-                    midCol=(stCol+enCol)/2;
-
-                    if(target==arr[midRow][midCol])
-                    return true;
-
-                    else if(target>arr[midRow][midCol])
-                    stCol=midCol+1;
-
-                    else
-                    enCol=midCol-1;
-                    
-                }
-
-                enRow=midRow-1;
-            }
+            e=mid-1;
             
-        }
+              }
 
-
-        return false;
+              return false;
     }
-    public static void main(String[] args) {
-        int [][]arr={{1,3,5,7},{10,11,16,20},{23,30,34,60}};
-        int target=50;
-        boolean ans=search(arr, target);
+    public static void main(String[] args) 
+    {
 
-        if(ans==true)
-        System.out.println("element found");
-        else 
-        System.out.println("not found");
+        int [][] arr={{1,3,5,7},{10,11,16,20},{23,30,34,60}};
+
+       boolean ans= searchMatrix(arr, 16);
+
+       if(ans==true)
+       System.out.println("Element found");
+       else
+       System.out.println("not found");
+
+
     }
 }
+
+
+
 
 
 
